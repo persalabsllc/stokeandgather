@@ -7,14 +7,36 @@ import SiteFooter from '../components/SiteFooter';
 import SiteHeader from '../components/SiteHeader';
 
 const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://www.stokeandgather.com';
+const siteTitle = 'Stoke & Gather | Fire Pit Weather Starts Here';
+const siteDescription = 'Fire pits, outdoor cooking gear, patio comfort, and everything you need for unforgettable nights outside.';
 
 export const metadata = {
   metadataBase: new URL(siteUrl),
   title: {
-    default: 'Stoke & Gather | Fire Pit Weather Starts Here',
+    default: siteTitle,
     template: '%s | Stoke & Gather',
   },
-  description: 'Fire pits, outdoor cooking gear, patio comfort, and everything you need for unforgettable nights outside.',
+  description: siteDescription,
+  alternates: { canonical: '/' },
+  openGraph: {
+    type: 'website',
+    url: '/',
+    siteName: 'Stoke & Gather',
+    title: siteTitle,
+    description: siteDescription,
+    images: [{
+      url: '/images/stoke-gather-hero.webp',
+      width: 1672,
+      height: 941,
+      alt: 'Friends gathered around a glowing backyard fire pit at dusk',
+    }],
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: siteTitle,
+    description: siteDescription,
+    images: ['/images/stoke-gather-hero.webp'],
+  },
 };
 
 export const viewport = {
