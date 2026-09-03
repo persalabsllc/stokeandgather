@@ -14,9 +14,7 @@ export default function Home() {
     <main>
       <div className="announcement">COOL NIGHTS ARE COMING — FIRE PIT WEATHER STARTS HERE</div>
       <header className="nav shell">
-        <a className="brand" href="#">
-          <img src="/stoke-logo.png" alt="Stoke & Gather" />
-        </a>
+        <a className="brand" href="#"><img src="/stoke-logo.svg" alt="Stoke & Gather" /></a>
         <nav>
           {['Fire Pits','Cooking','Furniture','Heaters'].map((item)=><a href="#categories" key={item}>{item}<ChevronDown size={14}/></a>)}
           <a href="#categories">Outdoor Living</a><a href="#featured">Sale</a>
@@ -25,7 +23,7 @@ export default function Home() {
       </header>
 
       <section className="hero">
-        <img className="hero-image" src="/stoke-hero.jpg" alt="Friends gathered around a fire pit" />
+        <img className="hero-image" src="https://images.unsplash.com/photo-1475483768296-6163e08872a1?auto=format&fit=crop&w=2000&q=90" alt="Friends gathered around a fire outdoors" />
         <div className="hero-shade" />
         <div className="hero-copy shell">
           <p className="eyebrow">STOKE THE FIRE. GATHER YOUR PEOPLE.</p>
@@ -56,7 +54,7 @@ export default function Home() {
 
       <section className="featured" id="featured"><div className="shell"><p className="eyebrow">COMING SOON</p><h2>THE FIRST STOKE & GATHER COLLECTION</h2><p>Smokeless fire pits, fire tables, pizza ovens, cast iron, outdoor cooking gear and gathering-ready furniture are being curated now.</p><a className="btn primary" href="mailto:hello@stokeandgather.com">GET LAUNCH UPDATES</a></div></section>
 
-      <footer><div className="shell footer-grid"><div><img src="/stoke-logo.png" alt="Stoke & Gather"/><p>Stoke the fire. Gather your people.</p></div><div><b>SHOP</b><a href="#categories">Fire Pits</a><a href="#categories">Outdoor Cooking</a><a href="#categories">Furniture</a></div><div><b>HELP</b><a href="mailto:hello@stokeandgather.com">Contact</a><a href="#">Shipping</a><a href="#">Returns</a></div></div><div className="copyright">© 2026 Stoke & Gather. All rights reserved.</div></footer>
+      <footer><div className="shell footer-grid"><div><img src="/stoke-logo.svg" alt="Stoke & Gather"/><p>Stoke the fire. Gather your people.</p></div><div><b>SHOP</b><a href="#categories">Fire Pits</a><a href="#categories">Outdoor Cooking</a><a href="#categories">Furniture</a></div><div><b>HELP</b><a href="mailto:hello@stokeandgather.com">Contact</a><a href="#">Shipping</a><a href="#">Returns</a></div></div><div className="copyright">© 2026 Stoke & Gather. All rights reserved.</div></footer>
     </main>
   );
 }
