@@ -6,7 +6,7 @@ import MetaPixel from '../components/MetaPixel';
 import SiteFooter from '../components/SiteFooter';
 import SiteHeader from '../components/SiteHeader';
 
-const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://stokeandgather.vercel.app';
+const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://www.stokeandgather.com';
 
 export const metadata = {
   metadataBase: new URL(siteUrl),
