@@ -1,60 +1,88 @@
-import { Search, UserRound, ShoppingCart, Truck, ShieldCheck, Flame, MessageSquareText, ChevronDown } from 'lucide-react';
+import Image from 'next/image';
+import Link from 'next/link';
+import { Flame, MessageSquareText, ShieldCheck, Truck } from 'lucide-react';
+import ProductCard from '../components/ProductCard';
+import { categories } from '../lib/catalog';
+import { getCatalogProducts } from '../lib/storefront';
 
-const categories = [
-  ['Fire Pits & Fire Tables','https://images.unsplash.com/photo-1605649487212-47bdab064df7?auto=format&fit=crop&w=900&q=85'],
-  ['Outdoor Cooking','https://images.unsplash.com/photo-1529692236671-f1f6cf9683ba?auto=format&fit=crop&w=900&q=85'],
-  ['Pizza Ovens & Grills','https://images.unsplash.com/photo-1579751626657-72bc17010498?auto=format&fit=crop&w=900&q=85'],
-  ['Outdoor Furniture','https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?auto=format&fit=crop&w=900&q=85'],
-  ['Heaters & Lighting','https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=900&q=85'],
-  ['Outdoor Living','https://images.unsplash.com/photo-1527766833261-b09c3163a791?auto=format&fit=crop&w=900&q=85'],
+const experiences = [
+  ['Gather Around the Fire', 'Fire pits · Fire tables · Seating · Fire tools', '/collections/fire-pits'],
+  ['Cook Over the Flame', 'Cast iron · Dutch ovens · Griddles · Pie irons · Pizza ovens', '/collections/cooking'],
+  ['Make the Patio Comfortable', 'Heaters · Chairs · Tables · Blankets · Lighting', '/collections/heaters'],
+  ['Take the Weekend Outside', 'Portable fire pits · Hammocks · Cooking gear · Coolers', '/collections/outdoor-living'],
 ];
 
-export default function Home() {
-  return (
-    <main>
-      <div className="announcement">COOL NIGHTS ARE COMING — FIRE PIT WEATHER STARTS HERE</div>
-      <header className="nav shell">
-        <a className="brand" href="#"><img src="/stoke-logo.svg" alt="Stoke & Gather" /></a>
-        <nav>
-          {['Fire Pits','Cooking','Furniture','Heaters'].map((item)=><a href="#categories" key={item}>{item}<ChevronDown size={14}/></a>)}
-          <a href="#categories">Outdoor Living</a><a href="#featured">Sale</a>
-        </nav>
-        <div className="nav-icons"><Search/><UserRound/><ShoppingCart/></div>
-      </header>
+export default async function Home() {
+  const products = await getCatalogProducts();
+  const featured = products.filter((product) => product.featured).slice(0, 4);
 
+  return (
+    <>
       <section className="hero">
-        <img className="hero-image" src="https://images.unsplash.com/photo-1475483768296-6163e08872a1?auto=format&fit=crop&w=2000&q=90" alt="Friends gathered around a fire outdoors" />
+        <Image className="hero-image" src="/images/stoke-gather-hero.webp" alt="Friends gathered in Adirondack chairs around a backyard fire pit" fill priority sizes="100vw" />
         <div className="hero-shade" />
         <div className="hero-copy shell">
           <p className="eyebrow">STOKE THE FIRE. GATHER YOUR PEOPLE.</p>
-          <h1>FIRE PIT WEATHER<br/>STARTS HERE.</h1>
+          <h1>FIRE PIT WEATHER<br />STARTS HERE.</h1>
           <p className="lede">Fire pits, outdoor cooking gear, and everything you need for unforgettable nights outside.</p>
-          <div className="actions"><a className="btn primary" href="#categories">SHOP FIRE PITS</a><a className="btn ghost" href="#categories">SHOP COOKING</a></div>
+          <div className="actions">
+            <Link className="btn primary" href="/collections/fire-pits">SHOP FIRE PITS</Link>
+            <Link className="btn ghost" href="/collections/cooking">SHOP COOKING</Link>
+          </div>
         </div>
       </section>
 
-      <section className="trust">
-        <div><Truck/><span><b>FAST U.S. SHIPPING</b><small>Most orders ship in 2–3 business days</small></span></div>
-        <div><ShieldCheck/><span><b>QUALITY YOU CAN TRUST</b><small>Carefully sourced. Built to last.</small></span></div>
-        <div><Flame/><span><b>COOK. GATHER. RELAX.</b><small>Everything for life outside.</small></span></div>
-        <div><MessageSquareText/><span><b>REAL PEOPLE. REAL SUPPORT.</b><small>We're here to help.</small></span></div>
+      <section className="trust" aria-label="Store promises">
+        <div><Truck /><span><b>U.S. WAREHOUSE FOCUS</b><small>Domestic fulfillment comes first</small></span></div>
+        <div><ShieldCheck /><span><b>CURATED, NOT CROWDED</b><small>Useful gear chosen with care</small></span></div>
+        <div><Flame /><span><b>COOK. GATHER. RELAX.</b><small>Everything for life outside</small></span></div>
+        <div><MessageSquareText /><span><b>REAL PEOPLE. REAL SUPPORT.</b><small>We’re here when you need us</small></span></div>
       </section>
 
       <section className="categories shell" id="categories">
-        <div className="section-kicker"><span/>SHOP BY CATEGORY<span/></div>
+        <div className="section-kicker"><span />SHOP BY CATEGORY<span /></div>
         <div className="category-grid">
-          {categories.map(([name,img]) => <a className="category" href="#featured" key={name}><img src={img} alt={name}/><div className="category-overlay"/><h3>{name}</h3></a>)}
+          {categories.map((category) => (
+            <Link className="category" href={`/collections/${category.slug}`} key={category.slug}>
+              <Image src={category.image} alt={category.name} fill sizes="(max-width: 650px) 50vw, (max-width: 1050px) 33vw, 17vw" />
+              <div className="category-overlay" />
+              <h2>{category.name}</h2>
+            </Link>
+          ))}
         </div>
       </section>
 
-      <section className="story shell">
-        <div><p className="eyebrow dark">BUILT FOR THE BEST KIND OF WEATHER</p><h2>COOL AIR. HOT FOOD.<br/>GOOD COMPANY.</h2></div>
-        <p>Stoke & Gather is for evenings when nobody wants to go inside. Fire going, cast iron on the grate, something cold in your hand and your favorite people close by. We source outdoor gear that makes those nights easier to create — and harder to leave.</p>
+      <section className="featured-products shell" id="featured">
+        <div className="section-heading">
+          <div><p className="eyebrow dark">THE FIRST FIRE</p><h2>GEAR WORTH GATHERING AROUND.</h2></div>
+          <p>A tight launch collection built around products that do more than sit on a patio—they give people a reason to use it.</p>
+        </div>
+        <div className="product-grid">{featured.map((product) => <ProductCard product={product} key={product.id} />)}</div>
       </section>
 
-      <section className="featured" id="featured"><div className="shell"><p className="eyebrow">COMING SOON</p><h2>THE FIRST STOKE & GATHER COLLECTION</h2><p>Smokeless fire pits, fire tables, pizza ovens, cast iron, outdoor cooking gear and gathering-ready furniture are being curated now.</p><a className="btn primary" href="mailto:hello@stokeandgather.com">GET LAUNCH UPDATES</a></div></section>
+      <section className="story shell">
+        <div><p className="eyebrow dark">BUILT FOR THE BEST KIND OF WEATHER</p><h2>COOL AIR. HOT FOOD.<br />GOOD COMPANY.</h2></div>
+        <p>Stoke & Gather is for evenings when nobody wants to go inside. Fire going, cast iron on the grate, something cold in your hand, and your favorite people close by. We source outdoor gear that makes those nights easier to create—and harder to leave.</p>
+      </section>
 
-      <footer><div className="shell footer-grid"><div><img src="/stoke-logo.svg" alt="Stoke & Gather"/><p>Stoke the fire. Gather your people.</p></div><div><b>SHOP</b><a href="#categories">Fire Pits</a><a href="#categories">Outdoor Cooking</a><a href="#categories">Furniture</a></div><div><b>HELP</b><a href="mailto:hello@stokeandgather.com">Contact</a><a href="#">Shipping</a><a href="#">Returns</a></div></div><div className="copyright">© 2026 Stoke & Gather. All rights reserved.</div></footer>
-    </main>
+      <section className="experience-section">
+        <div className="shell experience-layout">
+          <div className="experience-intro"><p className="eyebrow">SHOP THE FEELING</p><h2>OUTSIDE IS THE<br />WHOLE POINT.</h2><p>Start with the kind of night you want. We’ll help you find the gear that makes it happen.</p></div>
+          <div className="experience-list">
+            {experiences.map(([title, description, href], index) => (
+              <Link href={href} key={title}><span>0{index + 1}</span><div><h3>{title}</h3><p>{description}</p></div><b>→</b></Link>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section className="launch-callout">
+        <div className="shell">
+          <p className="eyebrow">THE LAUNCH COLLECTION</p><h2>THE GOOD STUFF IS ALMOST HERE.</h2>
+          <p>We’re verifying U.S. inventory, delivery terms, and the first products now. Browse the preview, build a cart, and see what’s coming around the fire.</p>
+          <div className="actions"><Link className="btn primary" href="/collections/fire-pits">BROWSE THE COLLECTION</Link><a className="btn ghost" href="mailto:hello@stokeandgather.com?subject=Stoke%20%26%20Gather%20launch%20updates">GET LAUNCH UPDATES</a></div>
+        </div>
+      </section>
+    </>
   );
 }

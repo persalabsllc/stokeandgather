@@ -1,0 +1,2 @@
+export const metadata = { title: 'Contact' };
+export default function ContactPage() { return <section className="contact-page shell"><div><p className="eyebrow dark">REAL PEOPLE. REAL SUPPORT.</p><h1>LET’S TALK AROUND THE FIRE.</h1></div><div className="contact-card"><p>Questions about the launch collection, a product you want us to carry, or an order once the store opens?</p><a className="btn primary" href="mailto:hello@stokeandgather.com">EMAIL STOKE & GATHER</a><small>hello@stokeandgather.com</small></div></section>; }

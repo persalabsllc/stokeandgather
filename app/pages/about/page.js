@@ -1,0 +1,6 @@
+import Image from 'next/image';
+import Link from 'next/link';
+export const metadata = { title: 'Our Story', description: 'Why Stoke & Gather exists: to make the best nights outside easier to create.' };
+export default function AboutPage() {
+  return <section className="editorial-page shell"><div className="editorial-logo"><Image src="/images/stoke-primary-logo.svg" alt="Stoke & Gather — Stoke the fire. Gather your people." width={900} height={300} priority /></div><div className="editorial-grid"><div><p className="eyebrow dark">OUR STORY</p><h1>THE BEST PART OF THE HOUSE ISN’T ALWAYS INSIDE.</h1></div><div className="prose"><p>Stoke & Gather started with a simple picture: cool air, wood smoke, beef cooking in cast iron, cold drinks, and the people you actually want to spend another hour with.</p><p>We’re building a focused outdoor store around that feeling—not a warehouse of random patio products. Every category has a job: make it easier to gather around the fire, cook over the flame, make the patio comfortable, or take the weekend outside.</p><p>We prioritize products available through U.S. fulfillment partners, verify the practical details before they go live, and keep the launch collection intentionally tight.</p><Link className="btn primary" href="/collections/fire-pits">GATHER AROUND THE FIRE</Link></div></div></section>;
+}
